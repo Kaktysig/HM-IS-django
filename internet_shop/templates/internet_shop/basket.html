@@ -1,0 +1,58 @@
+{% extends 'internet_shop/_base.html' %}
+{% load static %}
+
+
+{% block content %}
+    <h1>Корзина</h1>
+         <table class="table">
+             <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Название</th>
+                    <th scope="col">Количество</th>
+                    <th scope="col">Стоимость за шт</th>
+                    <th scope="col">Сумма</th>
+                    <th scope="col"></th>
+                </tr>
+             </thead>
+             <tbody>
+                {% for item in basket_items %}
+                    <tr>
+                        <td>
+                            {{ item.good.name }}
+                        </td>
+                        <td>
+                            {{ item.count_of }}
+                        </td>
+                        <td>
+                            {{ item.good.cost }}
+                        </td>
+                        <td>
+                            {{ item.summ }}
+                        </td>
+                        <td>
+                            <form method="post" action="{% url 'basket_del' item_id=item.id %}">
+                                {% csrf_token %}
+                                <input type="submit" class="btn btn-dark" value="Удалить"/>
+                            </form>
+                        </td>
+                    {% empty %}
+                        <td colspan="12">No goods</td>
+                    </tr>
+                {% endfor %}
+             </tbody>
+         </table>
+        <h3 class="mt-5">Сделайте заказ:</h3>
+        <form method="POST" class="p-3" action="{% url 'ready' %}">
+            {% csrf_token %}
+            <input name="uid" value="{{ basket_items.first.uid }}"  hidden/>
+            <label>ФИО</label><br>
+            {{ form.name }}<br>
+            <label>Телефон:</label><br>
+            {{ form.phone }}<br>
+            <label>E-mail:</label><br>
+            {{ form.email }}<br>
+            <label>Комментарий:</label><br>
+            {{ form.comment }}<br>
+            <input type="submit" class="btn btn-block btn-dark" value="Заказать"/>
+        </form>
+{% endblock %}
