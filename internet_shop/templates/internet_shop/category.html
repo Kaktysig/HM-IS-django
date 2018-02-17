@@ -18,9 +18,20 @@
                             Цена: <b>{{ good.cost }}</b>
                             <form action="{% url 'basket_add' item_id=good.id %}" method="POST">
                                 {% csrf_token %}
+{#                                    <input hidden name="goods_id" value="{{ good.id }}"/>#}
                                     <input name="count_of" id="id_count_of" value="1" hidden/><br>
-                                <button type="submit" class="btn btn-dark">Добавить в корзину</button>
+                                <button id="in-basket" type="submit" class="btn btn-dark">Добавить в корзину</button>
                             </form>
+                            <script>
+                                $("#in-basket").click(
+                                    function () {
+                                        gtag('event', 'click', {
+                                            'event_category': 'button',
+                                            'event_label': 'item-to-cart-from-category'
+                                        })
+                                    }
+                                )
+                            </script>
                         </div>
                     </div>
             </div>
