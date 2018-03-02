@@ -18,7 +18,6 @@
                             Цена: <b>{{ good.cost }}</b>
                             <form action="{% url 'basket_add' item_id=good.id %}" method="POST">
                                 {% csrf_token %}
-{#                                    <input hidden name="goods_id" value="{{ good.id }}"/>#}
                                     <input name="count_of" id="id_count_of" value="1" hidden/><br>
                                 <button id="in-basket" type="submit" class="btn btn-dark">Добавить в корзину</button>
                             </form>

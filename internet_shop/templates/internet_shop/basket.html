@@ -3,6 +3,14 @@
 
 
 {% block content %}
+    <script>
+        $( document ).ready(function () {
+            gtag('config', 'UA-114277992-1', {
+                'page_title': 'Корзина с товарами',
+                'page_path': '/virtual/not-null-basket/'
+            });
+        })
+    </script>
     <h1>Корзина</h1>
          <table class="table">
              <thead class="thead-dark">
@@ -32,8 +40,18 @@
                         <td>
                             <form method="post" action="{% url 'basket_del' item_id=item.id %}">
                                 {% csrf_token %}
-                                <input type="submit" class="btn btn-dark" value="Удалить"/>
+                                <input id="del_item" type="submit" class="btn btn-dark" value="Удалить"/>
                             </form>
+                            <script>
+                                $("#del_item").click(
+                                    function () {
+                                        gtag('event', 'click', {
+                                            'event_category': 'button',
+                                            'event_label': 'del-good-from-basket'
+                                        })
+                                    }
+                                )
+                            </script>
                         </td>
                     {% empty %}
                         <td colspan="12">No goods</td>
@@ -53,6 +71,48 @@
             {{ form.email }}<br>
             <label>Комментарий:</label><br>
             {{ form.comment }}<br>
-            <input type="submit" class="btn btn-block btn-dark" value="Заказать"/>
+            <input type="submit" class="btn btn-block btn-dark" id="button_submit" value="Заказать"/>
         </form>
+        <script>
+            $('#id_name').click(
+                function () {
+                    gtag('config', 'UA-114277992-1', {
+                      'page_title': 'Инпут ФИО',
+                      'page_path': '/virtual/input-fio/'
+                    });
+                }
+            );
+            $('#id_phone').click(
+                function () {
+                    gtag('config', 'UA-114277992-1', {
+                      'page_title': 'Инпут Телефон',
+                      'page_path': '/virtual/input-phone/'
+                    });
+                }
+            );
+            $('#id_email').click(
+                function () {
+                    gtag('config', 'UA-114277992-1', {
+                      'page_title': 'Инпут Email',
+                      'page_path': '/virtual/input-email/'
+                    });
+                }
+            );
+            $('#id_comment').click(
+                function () {
+                    gtag('config', 'UA-114277992-1', {
+                      'page_title': 'Инпут Комментарий',
+                      'page_path': '/virtual/input-comment/'
+                    });
+                }
+            );
+            $('#button_submit').click(
+                function () {
+                    gtag('config', 'UA-114277992-1', {
+                      'page_title': 'Кнопка Отправки',
+                      'page_path': '/virtual/input-comment/'
+                    });
+                }
+            );
+        </script>
 {% endblock %}

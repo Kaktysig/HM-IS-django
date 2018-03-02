@@ -13,6 +13,16 @@
         <h3>Выберите количество:</h3>
         {{ form.count_of }}<br>
 
-    <button class="btn btn-dark mt-3 btn-block" type="submit">Добавить в корзину</button>
+    <button id="to-basket" class="btn btn-dark mt-3 btn-block" type="submit">Добавить в корзину</button>
     </form>
+    <script>
+        $("#to-basket").click(
+            function () {
+                gtag('event', 'click', {
+                    'event_category': 'button',
+                    'event_label': 'item-to-cart-from-category'
+                })
+            }
+        );
+    </script>
 {% endblock %}
